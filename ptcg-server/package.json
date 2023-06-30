@@ -9,6 +9,7 @@
     "compile": "tsc && tsc -p tsconfig.dist.json",
     "build": "npm run lint && npm run test && npm run compile",
     "start": "node start.js",
+    "ga": "node start-deck-evolution.js",
     "start:dev": "nodemon -e ts --exec \"tsc && npm run start\"",
     "test": "nyc -e \".ts\" -x \"src/**/*.spec.ts\" jasmine-ts \"src/**/*.spec.ts\"",
     "coverage": "npm test && nyc report -r html"
