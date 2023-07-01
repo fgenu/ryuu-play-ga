@@ -15,6 +15,10 @@ export class Individual extends SimpleBot {
     this.updatedOnIteration = updatedOnIteration;
   }
 
+  public async loadDeck(): Promise<string[]> {
+    return this.deck;
+  }
+
   public onGameLeave(game: Game, client: Client): void {
     const myPlayer: Player | null = this.getMyPlayer(game);
     if (myPlayer) {

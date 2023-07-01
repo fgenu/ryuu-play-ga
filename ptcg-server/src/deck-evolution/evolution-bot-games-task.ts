@@ -1,17 +1,13 @@
 import {BotGamesTask} from '../game/bots/bot-games-task';
 import {Individual} from './individual';
 import {BotClient} from '../game/bots/bot-client';
-import {Scheduler} from '../utils';
-
 
 export class EvolutionBotGamesTask extends BotGamesTask {
   public startBotGames() {
+    console.log('starting bot games');
     // maybe base it more on the parent's?
     // TODO allow loading progress from file
-    const scheduler = Scheduler.getInstance();
-    scheduler.run(async () => {
-      await this.beginTournamentIteration();
-    }, 1); // TODO
+    this.beginTournamentIteration();
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -25,7 +21,6 @@ export class EvolutionBotGamesTask extends BotGamesTask {
           individual.createGame(deck, undefined, opponent);
           console.log('Pitted ' + individual.name + ' against ' + opponent.name);
           // TODO currently, it seems all bots are watching all games. Maybe close them?
-          // TODO can bots be in more than one game simultaneously?
         }
       });
     });

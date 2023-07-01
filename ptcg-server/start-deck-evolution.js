@@ -7,9 +7,6 @@ const { EvolutionBotManager } = require("./output/deck-evolution/evolution-bot-m
 const { config } = require('./output/config');
 const sets = require('./output/sets');
 
-config.core.schedulerStartNextHour = false;
-config.bots.actionDelay = 0;
-
 const process = require('process');
 const cardManager = CardManager.getInstance();
 cardManager.defineSet(sets.setDiamondAndPearl); // TODO pick only the energies?
@@ -31,8 +28,8 @@ app.connectToDatabase()
     console.error(error.message);
     process.exit(1);
   })
-  .then(() => app.configureBotManager(botManager))
   .then(() => app.start())
+  .then(() => app.configureBotManager(botManager))
   .then(() => {
     const address = config.backend.address;
     const port = config.backend.port;

@@ -1,12 +1,12 @@
-import { CardManager } from '../cards/card-manager';
-import { Client } from '../client/client.interface';
-import { DeckAnalyser } from '../cards/deck-analyser';
-import { Game } from '../core/game';
-import { GameError } from '../game-error';
-import { GameMessage } from '../game-message';
-import { User, Message, Deck } from '../../storage';
-import { Core } from '../core/core';
-import { State } from '../store/state/state';
+import {CardManager} from '../cards/card-manager';
+import {Client} from '../client/client.interface';
+import {DeckAnalyser} from '../cards/deck-analyser';
+import {Game} from '../core/game';
+import {GameError} from '../game-error';
+import {GameMessage} from '../game-message';
+import {Deck, Message, User} from '../../storage';
+import {Core} from '../core/core';
+import {State} from '../store/state/state';
 import {GameSettings} from '../core/game-settings';
 
 export abstract class BotClient implements Client {
@@ -47,8 +47,7 @@ export abstract class BotClient implements Client {
     if (this.core === undefined) {
       throw new GameError(GameMessage.ERROR_BOT_NOT_INITIALIZED);
     }
-    const game = this.core.createGame(this, deck, gameSettings, invited);
-    return game;
+    return this.core.createGame(this, deck, gameSettings, invited);
   }
 
   public async loadDeck(): Promise<string[]> {
@@ -69,7 +68,7 @@ export abstract class BotClient implements Client {
     return decks[num];
   }
 
-  private validateDeck(cards: string[]): boolean {
+  protected validateDeck(cards: string[]): boolean {
     const cardManager = CardManager.getInstance();
     if (cards.some(c => !cardManager.isCardDefined(c))) {
       return false;

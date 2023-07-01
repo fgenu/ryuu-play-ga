@@ -19,7 +19,7 @@ export class EvolutionBotManager extends BotManager {
 
   constructor() {
     super();
-    this.bots = this.createPool(this._populationSize);
+    this.createPool(this._populationSize);
     this.botGameArranger = new EvolutionBotGamesTask(this.bots);
   }
 
@@ -30,15 +30,13 @@ export class EvolutionBotManager extends BotManager {
     return EvolutionBotManager.ev_instance;
   }
 
-  private createPool(population: number): Individual[] {
-    const pool: Individual[] = [];
+  private createPool(population: number): void {
     for (let i = 1; i <= population; i++) {
       const botName = 'Bot #' + i;
       console.log('Creating ' + botName);
       const individual = new Individual(botName, this.createRandomDeck());
       this.registerBot(individual);
     }
-    return pool;
   }
 
   private createRandomDeck(): string[] { // TODO move elsewhere
