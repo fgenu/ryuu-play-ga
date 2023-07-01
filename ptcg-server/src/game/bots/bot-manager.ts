@@ -11,8 +11,8 @@ export class BotManager {
 
   private static instance: BotManager;
 
-  private bots: BotClient[] = [];
-  private botGameArranger = new BotGamesTask(this.bots);
+  protected bots: BotClient[] = [];
+  protected botGameArranger = new BotGamesTask(this.bots);
 
   public static getInstance(): BotManager {
     if (!BotManager.instance) {

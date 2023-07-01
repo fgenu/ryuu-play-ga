@@ -70,6 +70,7 @@ export class Core {
   }
 
   public joinGame(client: Client, game: Game): void {
+    console.log('Client ' + client.name + ' joining game ' + game.id);
     if (this.clients.indexOf(client) === -1) {
       throw new GameError(GameMessage.ERROR_CLIENT_NOT_CONNECTED);
     }
@@ -84,6 +85,7 @@ export class Core {
   }
 
   public deleteGame(game: Game): void {
+    console.log('Deleting game ' + game.id);
     game.clients.forEach(client => {
       const index = client.games.indexOf(game);
       if (index !== -1) {

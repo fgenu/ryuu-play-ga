@@ -27,7 +27,7 @@ export class App {
   private app: express.Application;
   private ws: WebSocketServer;
   private storage: Storage;
-  private core: Core = new Core();
+  protected core: Core = new Core();
 
   constructor() {
     this.storage = new Storage();

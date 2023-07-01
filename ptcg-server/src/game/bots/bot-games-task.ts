@@ -10,7 +10,7 @@ interface BotsForGame {
 
 export class BotGamesTask {
 
-  private bots: BotClient[] = [];
+  protected bots: BotClient[] = [];
 
   constructor(bots: BotClient[]) {
     this.bots = bots;
