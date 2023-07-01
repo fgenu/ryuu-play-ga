@@ -1,7 +1,6 @@
 import {Individual} from './individual';
 import {Card, CardManager, CardType, EnergyCard, GameSettings, PokemonCard, Stage, SuperType} from '../game';
 import {EvolutionCore} from './evolution-core';
-import {EvolutionBot} from './evolution-bot';
 import {GrassEnergy} from '../sets/set-diamond-and-pearl/grass-energy';
 import {DarknessEnergy} from '../sets/set-diamond-and-pearl/darkness-energy';
 import {MetalEnergy} from '../sets/set-diamond-and-pearl/metal-energy';
@@ -14,7 +13,7 @@ import {FireEnergy} from '../sets/set-diamond-and-pearl/fire-energy';
 
 
 export class DeckEvolutionApp {
-  private readonly _populationSize = 12; // TODO config file or something
+  private readonly _populationSize = 4; // TODO config file or something
 
   private core: EvolutionCore;
   private individuals: Individual[];
@@ -30,11 +29,10 @@ export class DeckEvolutionApp {
   public run(): void {
     console.log('Beginning');
     this.individuals = this.createPool(this._populationSize);
-    this.individuals.forEach((individual: Individual) => {
-      this.core.connect(individual.client);
-    });
     // TODO allow loading progress from file
-    this.beginTournamentIteration();
+    // this.beginTournamentIteration();
+    // TODO temporarily trying to get a single game running
+    this.core.createGame(individuals[0], individual.deck, this.gameSettings, opponent);
 
   }
 
@@ -43,7 +41,9 @@ export class DeckEvolutionApp {
     for (let i = 1; i <= population; i++) {
       const botName = 'Bot #' + i;
       console.log('Creating ' + botName);
-      pool.push(new Individual(new EvolutionBot(botName), this.createRandomDeck()));
+      const individual = new Individual(botName, this.createRandomDeck());
+      this.core.connect(individual);
+      pool.push(individual);
     }
     return pool;
   }
@@ -85,6 +85,7 @@ export class DeckEvolutionApp {
     }
     const deck: string[] = Array<string>(59).fill(energy.fullName);
     deck.push(pokemon.fullName);
+    console.log('Created deck: ' + deck);
     return deck;
   }
 
@@ -102,8 +103,8 @@ export class DeckEvolutionApp {
     this.individuals.forEach((individual: Individual) => {
       this.individuals.forEach((opponent: Individual) => {
         if (individual != opponent) {
-          this.core.createGame(individual.client, individual.deck, this.gameSettings, opponent.client);
-          console.log('Pitted ' + individual.client.name + ' against ' + opponent.client.name);
+          this.core.createGame(individual, individual.deck, this.gameSettings, opponent);
+          console.log('Pitted ' + individual.name + ' against ' + opponent.name);
           // TODO currently, it seems all bots are watching all games. Maybe close them?
           // TODO can bots be in more than one game simultaneously?
         }
