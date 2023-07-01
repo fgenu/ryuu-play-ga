@@ -5,13 +5,13 @@ import {EvolutionCore} from './evolution-core';
 
 export class EvolutionBotGamesTask extends BotGamesTask {
 
+  private tournamentCounter: number = 0;
+
   constructor(bots: BotClient[]) {
     super(bots);
   }
 
   public startBotGames() {
-    console.log('starting bot games');
-    // maybe base it more on the parent's?
     // TODO allow loading progress from file?
     this.beginTournamentIteration();
     (this.bots[0].core as EvolutionCore).afterAllGamesDeleted = () => { // TODO ugly
@@ -20,10 +20,9 @@ export class EvolutionBotGamesTask extends BotGamesTask {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   private beginTournamentIteration(): void {
-    console.log('Beginning a tournament!');
+    this.tournamentCounter++;
+    console.log('Beginning tournament #' + this.tournamentCounter + '!');
     this.bots.forEach((individual: BotClient) => {
       this.bots.forEach((opponent: BotClient) => {
         if (individual != opponent) {
@@ -37,6 +36,14 @@ export class EvolutionBotGamesTask extends BotGamesTask {
   }
 
   private endTournamentIteration(): void {
-    console.log('Ending tournament!');
+    console.log('Ending tournament #' + this.tournamentCounter + '.');
+    // save results
+    // TODO
+    // select elite
+    // TODO
+    // breed and mutate
+    // TODO
+    // start again
+    this.beginTournamentIteration();
   }
 }
