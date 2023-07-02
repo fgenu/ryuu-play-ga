@@ -30,6 +30,9 @@ export class EvolutionBotGamesTask extends BotGamesTask {
     this.tournamentCounter++;
     console.log('Beginning tournament #' + this.tournamentCounter + '!');
     this.bots.forEach((individual: BotClient) => {
+      (individual as Individual).score = 0;
+    });
+    this.bots.forEach((individual: BotClient) => {
       this.bots.forEach((opponent: BotClient) => {
         if (individual != opponent) {
           const deck: string[] = (individual as Individual).deck;
@@ -63,7 +66,7 @@ export class EvolutionBotGamesTask extends BotGamesTask {
   }
 
   private writeResults(): void {
-    logToFile(this.logFilePath, '####################### TOURNAMENT NUMBER ' + this.tournamentCounter + '#######################');
+    logToFile(this.logFilePath, '####################### TOURNAMENT NUMBER ' + this.tournamentCounter + ' #######################');
     logToFile(this.logFilePath, '\n');
     this.bots.forEach((bot: BotClient) => {
       const individual: Individual = bot as Individual;
@@ -71,7 +74,7 @@ export class EvolutionBotGamesTask extends BotGamesTask {
       logToFile(this.logFilePath, 'Score: ' + individual.score);
       logToFile(this.logFilePath, 'Last changed on tournament: ' + individual.updatedOnIteration);
       logToFile(this.logFilePath, 'Deck: ' + individual.deck);
+      logToFile(this.logFilePath, '\n');
     });
-    logToFile(this.logFilePath, '\n');
   }
 }
