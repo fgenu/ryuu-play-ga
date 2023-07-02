@@ -97,3 +97,33 @@ export function generateId<T extends {id: number}[]>(array: T): number {
 
   return id;
 }
+
+export function getRandomItem<T>(list: T[]): T {
+  // TODO not handling empty lists at all
+  const randomIndex = Math.floor(Math.random() * list.length);
+  return list[randomIndex];
+}
+
+export function shuffle<T>(array: T[]): T[] {
+  let currentIndex = array.length,  randomIndex;
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
+import * as fs from 'fs';
+
+export function logToFile(filePath: string, message: string): void {
+  fs.appendFile(filePath, `${message}\n`, (err) => {
+    if (err) {
+      console.error('Error writing to file:', err);
+    }
+  });
+}
