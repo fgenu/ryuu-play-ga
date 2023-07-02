@@ -1,5 +1,7 @@
-import { Card } from '../store/card/card';
-import { deepClone } from '../../utils/utils';
+import {Card} from '../store/card/card';
+import {deepClone, getRandomItem} from '../../utils/utils';
+import {Stage} from '../store/card/card-types';
+import {PokemonCard} from '../store/card/pokemon-card';
 
 export class CardManager {
 
@@ -39,4 +41,9 @@ export class CardManager {
     return this.cards;
   }
 
+  public getRandomBasicPokemon(): PokemonCard {
+    const allCards: Card[] = this.getAllCards();
+    const allBasicPokemon: Card[] = allCards.filter((card: Card) => card instanceof PokemonCard && card.stage == Stage.BASIC);
+    return getRandomItem(allBasicPokemon) as PokemonCard;
+  }
 }

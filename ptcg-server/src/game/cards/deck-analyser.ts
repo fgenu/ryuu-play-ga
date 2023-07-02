@@ -6,7 +6,7 @@ import { PokemonCard } from '../store/card/pokemon-card';
 
 export class DeckAnalyser {
 
-  private cards: Card[];
+  public cards: Card[];
 
   constructor(public cardNames: string[] = []) {
     const cardManager = CardManager.getInstance();

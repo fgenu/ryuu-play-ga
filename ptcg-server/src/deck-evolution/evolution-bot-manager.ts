@@ -1,7 +1,7 @@
 import {BotManager} from '../game/bots/bot-manager';
 import {EvolutionBotGamesTask} from './evolution-bot-games-task';
 import {Individual} from './individual';
-import {Card, CardManager, CardType, EnergyCard, PokemonCard, Stage, SuperType} from '../game';
+import {CardManager, CardType, EnergyCard} from '../game';
 import {GrassEnergy} from '../sets/set-diamond-and-pearl/grass-energy';
 import {FireEnergy} from '../sets/set-diamond-and-pearl/fire-energy';
 import {WaterEnergy} from '../sets/set-diamond-and-pearl/water-energy';
@@ -41,9 +41,7 @@ export class EvolutionBotManager extends BotManager {
 
   private createRandomDeck(): string[] { // TODO move elsewhere
     // For now, it simply gets a random basic Pokémon and 59 corresponding energies.
-    const allCards: Card[] = CardManager.getInstance().getAllCards();
-    const allBasicPokemon: Card[] = allCards.filter((card: Card) => card.superType == SuperType.POKEMON && (card as PokemonCard).stage == Stage.BASIC);
-    const pokemon: PokemonCard = this.getRandomItem(allBasicPokemon) as PokemonCard;
+    const pokemon = CardManager.getInstance().getRandomBasicPokemon();
     let energy: EnergyCard;
     switch (pokemon.cardType) {
       case CardType.GRASS:
@@ -80,11 +78,5 @@ export class EvolutionBotManager extends BotManager {
     return deck;
   }
 
-  private getRandomItem<T>(list: T[]): T | undefined { // TODO move to a utils or something
-    if (list.length === 0) {
-      return undefined;
-    }
-    const randomIndex = Math.floor(Math.random() * list.length);
-    return list[randomIndex];
-  }
+
 }
