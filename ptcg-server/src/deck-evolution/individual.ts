@@ -22,7 +22,7 @@ export class Individual extends SimpleBot {
   public onGameLeave(game: Game, client: Client): void {
     const myPlayer: Player | null = this.getMyPlayer(game);
     if (myPlayer) {
-      console.log(this.name + ' leaving game ' + game.id + ' after turn ' + game.state.turn);
+      // console.log(this.name + ' leaving game ' + game.id + ' after turn ' + game.state.turn);
       this.updateFitnessScore(game, myPlayer);
     }
     super.onGameLeave(game, client);
@@ -43,6 +43,6 @@ export class Individual extends SimpleBot {
     if (game.state.players[game.state.winner] == myPlayer) {
       this.score += 6;
     }
-    console.log('ID' + this.id + ' ' + this.name + ' score is now ' + this.score + ' after game ' + game.id);
+    // console.log('ID' + this.id + ' ' + this.name + ' score is now ' + this.score + ' after game ' + game.id);
   }
 }

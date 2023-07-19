@@ -14,7 +14,7 @@ import {FairyEnergy} from '../sets/set-diamond-and-pearl/fairy-energy';
 
 
 export class EvolutionBotManager extends BotManager {
-  private readonly _populationSize = 4; // TODO config file or something
+  private readonly _populationSize = 12; // TODO config file or something
   private static ev_instance: EvolutionBotManager; // bad solution probably
 
   constructor() {

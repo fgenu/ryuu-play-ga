@@ -18,7 +18,7 @@ export class SimpleGameHandler {
     public game: Game,
     deckPromise: Promise<string[]>
   ) {
-    this.waitForDeck(deckPromise);
+    this.waitForDeck(deckPromise).catch((error) => console.error(error));
   }
 
   public async onStateChange(state: State): Promise<void> {
@@ -38,7 +38,7 @@ export class SimpleGameHandler {
     this.changeInProgress = false;
     // A state change was ignored, because we were processing
     if (this.state) {
-      this.onStateChange(this.state);
+      this.onStateChange(this.state).catch((error) => console.error(error));
     }
   }
 
@@ -54,7 +54,7 @@ export class SimpleGameHandler {
 
     // A state change was ignored, because we were loading the deck
     if (this.state) {
-      this.onStateChange(this.state);
+      this.onStateChange(this.state).catch((error) => console.error(error));
     }
   }
 

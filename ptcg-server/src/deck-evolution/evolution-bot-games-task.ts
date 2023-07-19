@@ -7,7 +7,7 @@ import {logToFile} from '../utils';
 
 export class EvolutionBotGamesTask extends BotGamesTask {
 
-  private readonly _elitePercentage = 0.5;
+  private readonly _elitePercentage = 0.20;
   private readonly _cardBreedingLossRate = 5;
 
   private tournamentCounter: number = 0;
@@ -37,8 +37,6 @@ export class EvolutionBotGamesTask extends BotGamesTask {
         if (individual != opponent) {
           const deck: string[] = (individual as Individual).deck;
           individual.createGame(deck, undefined, opponent);
-          console.log('Pitted ' + individual.name + ' against ' + opponent.name);
-          // TODO currently, it seems all bots are watching all games. Maybe close them?
         }
       });
     });
